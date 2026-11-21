@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel El Aura - Acceso Personal</title>
+</head>
+<body>
+    <h1>Hotel El Aura - Acceso Personal</h1>
+
+    {% if form.errors %}
+        <p>Usuario o contraseña incorrectos. Por favor, inténtelo nuevamente.</p>
+    {% endif %}
+
+    {% if error %}
+        <p>{{ error }}</p>
+    {% endif %}
+
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        <div>
+            <label for="id_username">Usuario:</label>
+            <input type="text" id="id_username" name="username" required autofocus>
+        </div>
+        <br>
+        <div>
+            <label for="id_password">Contraseña:</label>
+            <input type="password" id="id_password" name="password" required>
+        </div>
+        <br>
+        <button type="submit">Ingresar</button>
+    </form>
+</body>
+</html>
