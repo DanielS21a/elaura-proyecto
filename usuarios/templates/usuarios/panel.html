@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel El Aura - Panel</title>
+</head>
+<body>
+    <h1>Hotel El Aura - Panel</h1>
+
+    <p><strong>skibidiUsuario:</strong> {{ request.user.username }}</p>
+    <p><strong>Rol:</strong> {{ rol }}</p>
+
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit">Cerrar sesión</button>
+    </form>
+</body>
+</html>
