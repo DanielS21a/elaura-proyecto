@@ -45,10 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'usuarios',
-<<<<<<< Updated upstream
-=======
     'habitaciones',
->>>>>>> Stashed changes
 ]
 
 MIDDLEWARE = [
