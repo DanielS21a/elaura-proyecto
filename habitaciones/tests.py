@@ -106,7 +106,7 @@ class HabitacionTests(TestCase):
         for url in (self.url_lista, self.url_registrar, reverse('inicio')):
             with self.subTest(url=url):
                 self.assertRedirects(
-                    self.client.get(url), f'{reverse("admin:login")}?next={url}'
+                    self.client.get(url), f'{reverse("login")}?next={url}'
                 )
 
     def test_lista_oculta_eliminadas(self):

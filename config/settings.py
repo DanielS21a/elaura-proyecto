@@ -98,9 +98,6 @@ DATABASES = {
 
 AUTH_USER_MODEL = 'usuarios.Usuario'
 
-# Provisorio: se usa el login del admin hasta implementar el módulo de sesión (HU01).
-LOGIN_URL = 'admin:login'
-
 
 # Password validation
 
