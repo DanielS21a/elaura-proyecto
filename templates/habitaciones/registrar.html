@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block titulo %}Registrar habitación{% endblock %}
+{% block contenido %}
+<nav aria-label="Ruta de navegación">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'habitaciones:lista' %}">Habitaciones</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Registrar</li>
+  </ol>
+</nav>
+
+<div class="formulario">
+  <h1 class="mb-1">Registrar habitación</h1>
+  <p class="text-secondary mb-4">La habitación quedará vacante y disponible para hospedajes.</p>
+
+  <form method="post" class="panel" novalidate>
+    {% csrf_token %}
+    {% for error in form.non_field_errors %}
+    <div class="alert alert-danger" role="alert">{{ error }}</div>
+    {% endfor %}
+
+    <div class="row g-4">
+      <div class="col-sm-6">
+        <label class="form-label" for="{{ form.numero.id_for_label }}">Número</label>
+        {{ form.numero }}
+        {% for error in form.numero.errors %}<div class="invalid-feedback d-block" id="{{ form.numero.id_for_label }}_error">{{ error }}</div>{% endfor %}
+      </div>
+      <div class="col-sm-6">
+        <label class="form-label" for="{{ form.capacidad.id_for_label }}">Capacidad (pasajeros)</label>
+        {{ form.capacidad }}
+        {% for error in form.capacidad.errors %}<div class="invalid-feedback d-block" id="{{ form.capacidad.id_for_label }}_error">{{ error }}</div>{% endfor %}
+      </div>
+      <div class="col-12">
+        <fieldset>
+          <legend class="form-label">Orientación</legend>
+          <div class="vistas">
+            {% for opcion in form.orientacion %}
+            <div>
+              {{ opcion.tag }}
+              <label class="ficha-{{ opcion.data.value|lower }}" for="{{ opcion.id_for_label }}">
+                {% include 'partials/icono_orientacion.html' with valor=opcion.data.value %}
+                {{ opcion.choice_label }}
+              </label>
+            </div>
+            {% endfor %}
+          </div>
+          {% for error in form.orientacion.errors %}<div class="invalid-feedback d-block" id="{{ form.orientacion.id_for_label }}_error">{{ error }}</div>{% endfor %}
+        </fieldset>
+      </div>
+    </div>
+
+    <div class="d-flex flex-wrap gap-2 mt-4 pt-4 border-top">
+      <button class="btn btn-primary" type="submit">Registrar habitación</button>
+      <button class="btn btn-outline-primary" type="submit" name="guardar_y_agregar" value="1">Registrar y agregar otra</button>
+      <a class="btn btn-link ms-sm-auto" href="{% url 'habitaciones:lista' %}">Cancelar</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

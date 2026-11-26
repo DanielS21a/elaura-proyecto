@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block titulo %}Página no encontrada{% endblock %}
+{% block contenido %}
+<div class="vacio">
+  <i class="bi bi-signpost-split" aria-hidden="true"></i>
+  <h1>Página no encontrada</h1>
+  <p>La dirección no existe o fue movida.</p>
+  <a class="btn btn-primary" href="{% url 'habitaciones:lista' %}">Volver a habitaciones</a>
+</div>
+{% endblock %}

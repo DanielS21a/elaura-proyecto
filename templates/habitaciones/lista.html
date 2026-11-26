@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block titulo %}Habitaciones{% endblock %}
+{% block contenido %}
+<header class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4">
+  <div>
+    <h1 class="mb-1">Habitaciones</h1>
+    <p class="text-secondary mb-0">Estado actual de las habitaciones del hotel.</p>
+  </div>
+  {% if user.es_gerente %}
+  <a class="btn btn-primary btn-lg" href="{% url 'habitaciones:registrar' %}"><i class="bi bi-plus-lg" aria-hidden="true"></i> Registrar habitación</a>
+  {% endif %}
+</header>
+
+{% if habitaciones %}
+<dl class="resumen mb-4">
+  <div><dt>Habitaciones</dt><dd>{{ total }}</dd></div>
+  <div><dt>Vacantes</dt><dd class="text-vacante">{{ vacantes }}</dd></div>
+  <div><dt>Ocupadas</dt><dd class="text-ocupada">{{ ocupadas }}</dd></div>
+  <div><dt>Capacidad total</dt><dd>{{ capacidad_total }} <small>pasajeros</small></dd></div>
+</dl>
+
+<form class="row g-2 mb-4" id="filtros" role="search">
+  <div class="col-12 col-md">
+    <label class="visually-hidden" for="filtro-numero">Buscar por número</label>
+    <input class="form-control" type="search" id="filtro-numero" inputmode="numeric" placeholder="Buscar por número" autocomplete="off">
+  </div>
+  <div class="col-6 col-md-3">
+    <label class="visually-hidden" for="filtro-estado">Estado</label>
+    <select class="form-select" id="filtro-estado" autocomplete="off">
+      <option value="">Todos los estados</option>
+      {% for valor, etiqueta in estados %}<option value="{{ valor }}">{{ etiqueta }}</option>{% endfor %}
+    </select>
+  </div>
+  <div class="col-6 col-md-3">
+    <label class="visually-hidden" for="filtro-orientacion">Orientación</label>
+    <select class="form-select" id="filtro-orientacion" autocomplete="off">
+      <option value="">Todas las vistas</option>
+      {% for valor, etiqueta in orientaciones %}<option value="{{ valor }}">{{ etiqueta }}</option>{% endfor %}
+    </select>
+  </div>
+</form>
+
+<ul class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-3 list-unstyled" id="habitaciones">
+  {% for habitacion in habitaciones %}
+  <li class="col" data-numero="{{ habitacion.numero|stringformat:'d' }}" data-estado="{{ habitacion.estado }}" data-orientacion="{{ habitacion.orientacion }}">
+    <article class="ficha ficha-{{ habitacion.orientacion|lower }}">
+      <div class="ficha-vista">
+        {% include 'partials/icono_orientacion.html' with valor=habitacion.orientacion %}
+        <span>{{ habitacion.get_orientacion_display }}</span>
+      </div>
+      <div class="ficha-cuerpo">
+        <div class="d-flex justify-content-between align-items-start gap-2">
+          <h2><span class="visually-hidden">Habitación </span>{{ habitacion.numero|stringformat:'d' }}</h2>
+          <span class="estado estado-{{ habitacion.estado|lower }}">{{ habitacion.get_estado_display }}</span>
+        </div>
+        <p class="mb-0 text-secondary"><i class="bi bi-people" aria-hidden="true"></i> {{ habitacion.capacidad }} pasajero{{ habitacion.capacidad|pluralize }}</p>
+      </div>
+    </article>
+  </li>
+  {% endfor %}
+</ul>
+<p class="vacio" id="sin-resultados" role="status" hidden>Ninguna habitación coincide con los filtros.</p>
+{% else %}
+<div class="vacio">
+  <i class="bi bi-door-closed" aria-hidden="true"></i>
+  <p class="mb-0">Todavía no hay habitaciones registradas.</p>
+</div>
+{% endif %}
+{% endblock %}
+{% block scripts %}<script src="{% static 'js/habitaciones.js' %}"></script>{% endblock %}

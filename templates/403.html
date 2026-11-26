@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block titulo %}Acceso denegado{% endblock %}
+{% block contenido %}
+<div class="vacio">
+  <i class="bi bi-signpost-split" aria-hidden="true"></i>
+  <h1>Acceso denegado</h1>
+  <p>Tu perfil no tiene permiso para ver esta página.</p>
+  <a class="btn btn-primary" href="{% url 'habitaciones:lista' %}">Volver a habitaciones</a>
+</div>
+{% endblock %}
