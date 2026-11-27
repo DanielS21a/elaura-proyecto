@@ -22,7 +22,7 @@
         <li class="nav-item"><a class="nav-link" href="#" data-pendiente="Pasajeros">Pasajeros</a></li>
         <li class="nav-item"><a class="nav-link" href="#" data-pendiente="Pagos">Pagos</a></li>
         {% if user.es_gerente %}
-        <li class="nav-item"><a class="nav-link" href="#" data-pendiente="Usuarios">Usuarios</a></li>
+        <li class="nav-item"><a class="nav-link{% if request.resolver_match.url_name == 'registrar_personal' %} active{% endif %}" href="{% url 'registrar_personal' %}">Usuarios</a></li>
         {% endif %}
       </ul>
       <ul class="navbar-nav">

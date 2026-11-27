@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block titulo %}Registrar personal{% endblock %}
+{% block contenido %}
+<div class="formulario">
+  <h1 class="mb-1">Registrar Personal</h1>
+  <p class="text-secondary mb-4">Cree una cuenta para un integrante del personal del hotel.</p>
+
+  <form method="post" class="panel" novalidate>
+    {% csrf_token %}
+    {% for error in form.non_field_errors %}
+    <div class="alert alert-danger" role="alert">{{ error }}</div>
+    {% endfor %}
+
+    <div class="row g-4">
+      <div class="col-12">
+        <label class="form-label" for="{{ form.nombre.id_for_label }}">{{ form.nombre.label }}</label>
+        <input type="text"
+               class="form-control{% if form.nombre.errors %} is-invalid{% endif %}"
+               id="{{ form.nombre.id_for_label }}"
+               name="{{ form.nombre.html_name }}"
+               value="{{ form.nombre.value|default_if_none:'' }}"
+               maxlength="120"
+               autocomplete="name"
+               required>
+        {% for error in form.nombre.errors %}<div class="invalid-feedback d-block" id="{{ form.nombre.id_for_label }}_error">{{ error }}</div>{% endfor %}
+      </div>
+      <div class="col-sm-6">
+        <label class="form-label" for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+        <input type="text"
+               class="form-control{% if form.username.errors %} is-invalid{% endif %}"
+               id="{{ form.username.id_for_label }}"
+               name="{{ form.username.html_name }}"
+               value="{{ form.username.value|default_if_none:'' }}"
+               maxlength="150"
+               autocomplete="off"
+               required>
+        {% for error in form.username.errors %}<div class="invalid-feedback d-block" id="{{ form.username.id_for_label }}_error">{{ error }}</div>{% endfor %}
+      </div>
+      <div class="col-sm-6">
+        <label class="form-label" for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
+        <input type="password"
+               class="form-control{% if form.password.errors %} is-invalid{% endif %}"
+               id="{{ form.password.id_for_label }}"
+               name="{{ form.password.html_name }}"
+               autocomplete="new-password"
+               required>
+        {% for error in form.password.errors %}<div class="invalid-feedback d-block" id="{{ form.password.id_for_label }}_error">{{ error }}</div>{% endfor %}
+      </div>
+      <div class="col-12">
+        <fieldset>
+          <legend class="form-label">{{ form.rol.label }}</legend>
+          {% for opcion in form.rol %}
+          <div class="form-check form-check-inline">
+            <input type="radio"
+                   class="form-check-input"
+                   id="{{ opcion.id_for_label }}"
+                   name="{{ opcion.data.name }}"
+                   value="{{ opcion.data.value }}"
+                   {% if opcion.data.selected %}checked{% endif %}>
+            <label class="form-check-label" for="{{ opcion.id_for_label }}">{{ opcion.choice_label }}</label>
+          </div>
+          {% endfor %}
+          {% for error in form.rol.errors %}<div class="invalid-feedback d-block" id="{{ form.rol.id_for_label }}_error">{{ error }}</div>{% endfor %}
+        </fieldset>
+      </div>
+    </div>
+
+    <div class="d-flex flex-wrap gap-2 mt-4 pt-4 border-top">
+      <button class="btn btn-primary" type="submit">Guardar Usuario</button>
+    </div>
+  </form>
+</div>
+{% endblock %}
