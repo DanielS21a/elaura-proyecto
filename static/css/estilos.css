@@ -18,7 +18,7 @@
   --bs-secondary-color: #54686d;
 }
 
-h1, .navbar-brand, .marca-pie { font-family: var(--titulos); }
+h1, .titulo-seccion, .navbar-brand, .marca-pie { font-family: var(--titulos); }
 h1 { font-size: clamp(1.9rem, 4vw, 2.6rem); }
 .saltar { position: absolute; z-index: 2000; padding: .5rem 1rem; background: #fff; }
 
@@ -89,6 +89,52 @@ h1 { font-size: clamp(1.9rem, 4vw, 2.6rem); }
 .vacio { padding: 4rem 1rem; text-align: center; color: var(--bs-secondary-color); }
 .vacio .bi { font-size: 3rem; }
 .vacio h1 { color: var(--bs-body-color); }
+
+/* Portada */
+.portada {
+  padding: clamp(1.75rem, 5vw, 3.25rem);
+  color: #fff;
+  background:
+    radial-gradient(circle at top right, rgb(230 181 102 / 18%), transparent 45%),
+    linear-gradient(125deg, var(--aura-profundo) 0%, var(--aura-primario) 100%);
+  border-bottom: 4px solid var(--aura-sol);
+  border-radius: .75rem;
+}
+.portada-insignia {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  padding: .3rem .75rem;
+  font-size: .85rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--aura-sol);
+  background: rgb(255 255 255 / 8%);
+  border: 1px solid rgb(230 181 102 / 35%);
+  border-radius: 2rem;
+}
+.portada-texto { max-width: 42rem; color: #d5e3e4; }
+.btn-sol {
+  --bs-btn-color: var(--aura-profundo); --bs-btn-bg: var(--aura-sol); --bs-btn-border-color: var(--aura-sol);
+  --bs-btn-hover-color: var(--aura-profundo); --bs-btn-hover-bg: #dda650; --bs-btn-hover-border-color: #dda650;
+  --bs-btn-active-color: var(--aura-profundo); --bs-btn-active-bg: #cf9740; --bs-btn-active-border-color: #cf9740;
+  font-weight: 600;
+}
+.icono-modulo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  font-size: 1.35rem;
+  color: var(--aura-primario);
+  background: rgb(27 100 112 / 10%);
+  border-radius: .6rem;
+}
+.ficha-inicio { transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease; }
+.ficha-inicio:hover { transform: translateY(-2px); border-color: var(--aura-primario); box-shadow: 0 10px 24px rgb(18 56 63 / 8%); }
+.icono-detalle { color: var(--aura-primario); font-size: 1.2rem; }
 
 .pie { color: #b9cdd0; background: var(--aura-profundo); font-size: .9rem; }
 .marca-pie { color: #fff; font-size: 1.1rem; }

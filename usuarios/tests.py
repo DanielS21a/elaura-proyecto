@@ -24,8 +24,8 @@ class LoginTests(TestCase):
         self.assertEqual(reverse('login'), '/usuarios/login/')
         self.assertEqual(self.client.get(reverse('login')).status_code, 200)
 
-    def test_login_redirige_a_habitaciones(self):
-        self.assertRedirects(self.iniciar_sesion(), reverse('habitaciones:lista'))
+    def test_login_redirige_al_inicio(self):
+        self.assertRedirects(self.iniciar_sesion(), reverse('inicio'))
 
     def test_login_respeta_next(self):
         destino = reverse('habitaciones:lista') + '?orden=numero'
@@ -35,10 +35,17 @@ class LoginTests(TestCase):
     def test_usuario_con_sesion_no_ve_el_login(self):
         self.client.force_login(self.usuario)
         self.assertRedirects(
-            self.client.get(reverse('login')), reverse('habitaciones:lista')
+            self.client.get(reverse('login')), reverse('inicio')
         )
 
     def test_logout_vuelve_al_login(self):
         self.client.force_login(self.usuario)
         self.assertRedirects(self.client.post(reverse('logout')), reverse('login'))
         self.assertNotIn('_auth_user_id', self.client.session)
+
+    def test_inicio_muestra_home_con_sesion(self):
+        self.client.force_login(self.usuario)
+        respuesta = self.client.get(reverse('inicio'))
+        self.assertEqual(respuesta.status_code, 200)
+        self.assertTemplateUsed(respuesta, 'home.html')
+        self.assertContains(respuesta, 'Ana Recepción')

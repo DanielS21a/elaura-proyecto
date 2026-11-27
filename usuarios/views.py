@@ -14,7 +14,7 @@ class UsuarioLoginView(LoginView):
     redirect_authenticated_user = True
     # Destino por defecto tras iniciar sesión. Si la URL trae ?next=..., LoginView
     # respeta ese destino (por ejemplo, al llegar redirigido desde /habitaciones/registrar/).
-    next_page = reverse_lazy('habitaciones:lista')
+    next_page = reverse_lazy('inicio')
 
 
 class UsuarioLogoutView(LogoutView):
